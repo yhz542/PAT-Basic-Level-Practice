@@ -28,3 +28,26 @@ void Print(char *sentence ,int start )
                         putchar( sentence[ i ] );
 }
 递归求解
+#include <stdio.h>
+int Print(void);
+int main(void)
+{
+        Print();
+        return 0;
+}
+int Print(void)
+{
+        char c[81];
+        int Count;
+        if(scanf("%s",c)!=EOF)
+        {
+                Count=Print();
+                if(!Count)
+                        printf("%s",c);
+                else
+                        printf(" %s",c);
+                return Count+1;
+        }
+        else
+                return 0;
+}
