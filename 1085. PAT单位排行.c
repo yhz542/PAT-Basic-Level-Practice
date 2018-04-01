@@ -1,7 +1,7 @@
 #include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
-#include<ctype.h>
+#include<stdlib.h> //qsort malloc
+#include<string.h> //用于比较字符串
+#include<ctype.h> //用于转换小写字母
 typedef struct Node Student;
 struct Node
 {
