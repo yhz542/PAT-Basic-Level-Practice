@@ -123,3 +123,164 @@ int cmp2(const void *p1,const void *p2)
         else
                 return 1;
 }
+第二种 使用哈希表进行加速
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<ctype.h>
+#include<math.h>
+#include<stdbool.h>
+typedef struct Node Student;
+struct Node
+{
+        float Score ;
+        char School[ 7 ] ;
+        int Count;
+};
+int Index( const char *, int );
+bool IsPrime( int );
+Student *CreateTable( int );
+float AddScore( const char , int );
+void FindAndInsert( int , int []);
+int cmp ( const void * , const void * );
+int school_cnt = 0 ;
+Student *Info = NULL ;
+int main(void)
+{
+        int N , Size ;
+        scanf( "%d" , &N ) ;
+        Size=2*N+1;
+        while(! IsPrime( Size ) )
+                Size += 2;
+        Info = CreateTable( Size );
+        int school_index[N] ;
+        for( int i = 0 ,index; i < N ; i++)
+                FindAndInsert( Size , school_index );
+        qsort(school_index , school_cnt , sizeof( int ) , cmp ) ;
+        printf("%d\n" , school_cnt );
+        for( int i = 0 , score = (int)Info[school_index[0]].Score , rank = 0; i < school_cnt ; i++ )
+        {
+                if(score > (int)Info[school_index[i]].Score)
+                {
+                        rank = i ;
+                        score = (int)Info[school_index[i]].Score ;
+                }
+                printf("%d %s %d %d\n" , rank+1 , Info[school_index[i]].School , (int)Info[school_index[i]].Score , Info[school_index[i]].Count);
+        }
+        return 0 ;
+}
+int Index( const char *Key , int TableSize )
+{
+        unsigned int result = 0;
+        while( *Key != '\0' )
+                result = ( result<<5 ) + *Key++ ;
+        return result % TableSize ;
+}
+Student *CreateTable(int Size)
+{
+        Student *Info = (Student *)malloc( sizeof( Student ) * Size ) ;
+        for( int i = 0 ; i < Size ; i++ )
+                Info[ i ].Count = 0 ;
+        return Info ;
+}
+bool IsPrime(int number)
+{
+        bool prime=true;
+        if(number % 5 ==0 && number != 5)
+                return false;
+        int i = (int)sqrt(number);
+        for(i=(i%2)?i:i-1;i>2;i-=2)
+        {
+                if(number%i==0)
+                {
+                        prime=false;
+                        break;
+                }
+        }
+        return prime;
+}
+float AddScore( const char c , int Score )
+{
+        float realscore ;
+        switch( c )
+        {
+                case 'T':
+                        realscore = Score * 1.5 ;
+                        break ;
+                case 'A':
+                        realscore = (float)Score ;
+                        break ;
+                case 'B':
+                        realscore = Score / 1.5 ;
+        }
+        return realscore ;
+}
+void FindAndInsert( int Size , int school_index[])
+{
+        char Tem_No[ 7 ];
+        int Tem_Score ;
+        char Tem_School[ 7 ] ;
+        scanf("%s %d %s", Tem_No , &Tem_Score , Tem_School );
+        char *tem = Tem_School ;
+        while( *tem != '\0' )
+        {
+                *tem = tolower( *tem ) ;
+                tem++ ;
+        }
+        int index = Index( Tem_School , Size ) ;
+        int flag = 0 ;
+        int cnt = 0 ;
+        while( !flag )
+        {
+                if( !Info[ index ].Count )
+                {
+                        strcpy( Info[ index ].School , Tem_School ) ;
+                        Info[ index ].Score = AddScore( *Tem_No , Tem_Score );
+                        Info[ index ].Count = 1 ;
+                        school_index [ school_cnt ] = index ;
+                        school_cnt ++ ;
+                        flag = 1;
+                }
+                else if( !strcmp( Tem_School , Info[index].School ) )
+                {
+                        Info[ index ].Score += AddScore( *Tem_No , Tem_Score ) ;
+                        Info[ index ].Count++ ;
+                        flag = 1;
+                }
+                else
+                {
+                        if(++cnt%2)
+                        {
+                                index = index +(cnt+1)/2*(cnt+1)/2 ;
+                                if( index >= Size)
+                                        index = index % Size ;
+                        }
+                        else
+                        {
+                                index -= cnt/2*cnt/2 ;
+                                if( index < 0 )
+                                        index += Size ;
+                        }
+                }
+        }
+}
+int cmp ( const void *p1 , const void *p2 )
+{
+        const int *a1 = (const int *)p1 ;
+        const int *a2 = (const int *)p2 ;
+        int score1 = (int)Info[ *a1 ].Score ;
+        int score2 = (int)Info[ *a2 ].Score ;
+        if( score1 > score2 )
+                return -1 ;
+        else if( score1 == score2 )
+        {
+                if( Info[ *a1 ].Count < Info[ *a2 ].Count )
+                        return -1 ;
+                else if( Info[ *a1 ].Count == Info[ *a2 ].Count )
+                        return strcmp( Info[ *a1 ].School , Info[ *a2 ].School ) ;
+                else
+                        return 1 ;
+        }
+        else
+                return 1 ;
+}
