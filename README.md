@@ -1,2 +1,2 @@
-# PAT-B-grade
-The set of PAT B grade test
+# PAT-Basic-Practice
+PAT乙级测试题，C语言及PYTHON代码
