@@ -1,5 +1,5 @@
 def num( k , c , a , b ):#解题的关键在于辗转相除法（欧几里得算法）对分数进行化简。要求比较多，但并不难。慢慢理清要求即可写出代码。
-    if not a :
+    if not a :           # k代表 整数部分  c代表余数部分 a代表分子 b代表分母
         print( 0 ,end = '')
     else :
         if a < 0 :
@@ -13,7 +13,7 @@ def num( k , c , a , b ):#解题的关键在于辗转相除法（欧几里得算
         if a < 0 :
             print( ')' , end = '' )
             
-def display( a3 , b3 , c3 , k3 , symbol ):
+def display( a3 , b3 , c3 , k3 , symbol ):#symbol代表+ - * /符号
     global a1 , a2 , b1 , b2 , k1 , k2
     num( k1 , c1 , a1 , b1 )
     print(' {} '.format(symbol),end='')
@@ -25,11 +25,11 @@ def display( a3 , b3 , c3 , k3 , symbol ):
 def gcd( a , b ):
     return gcd( b ,a%b) if b else a
 
-def dealwith( a , b ):
+def dealwith( a , b ):#对分子分母化简并返回
     gys = gcd( a , b )
     return int( a / gys ) ,int( b / gys )
 
-def solvekc( a , b ):
+def solvekc( a , b ):# 计算整数部分和分数部分，注意返回的都是非负整数，最后是否输出负号通过分子 a 的符号进行判断
     return abs( int( a / b ) ), abs( a ) % b 
 
 def add():
