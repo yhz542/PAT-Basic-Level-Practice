@@ -30,3 +30,4 @@ for i in range( length ):
             new += 10
     print( new , end = '' )
     flag = ( flag + 1 ) % 2
+#提示：当B长度比A小的时候为了进行运算 ， 必须把 B 的前端补充足够的零直至与 A 的长度相同。
