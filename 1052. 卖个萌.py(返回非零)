@@ -1,0 +1,30 @@
+import sys
+def DealWith() :
+    Input = sys.stdin.readline().strip()
+    New = []
+    cnt = 0 
+    for index , item in enumerate( Input ) :
+        if item == '[':
+            start = index + 1
+        if item == ']':
+            end = index
+            New.append( Input[ start : end ] )
+            cnt += 1
+    return New , cnt
+#也许是读入数据的时候程序boom了，总之PAT报错，也没找到解决方法
+hands , len1 = DealWith()
+eyes , len2 = DealWith()
+mouths , len3 = DealWith()
+N = int( sys.stdin.readline() )
+for i in range( N ) :
+    flag = 0
+    L = list( map( int , sys.stdin.readline().split() ) )
+    if L[ 0 ] > len1 or L[ 4 ] > len1 or L[ 1 ] > len2 or L[ 3 ] > len2 or L[ 2 ] > len3 :
+        flag = 1
+    elif L[ 0 ] < 1 or L[ 4 ] < 1 or L[ 1 ] < 1 or L[ 3 ] < 1 or L[ 2 ] < 1:
+        flag = 1
+    if flag :
+        print('Are you kidding me? @\/@')
+    else :
+        print( hands[ L[ 0 ] - 1 ], '(',eyes[ L[ 1 ] - 1 ] , mouths[ L[ 2 ] - 1],
+               eyes[ L[ 3 ] - 1 ], ')' ,hands[ L[ 4 ] - 1] , sep = '' )
