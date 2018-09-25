@@ -1,5 +1,5 @@
 #include<stdio.h>//先用散列表进行插入和，然后将其插入哈希表中，每插入一次将一次和计入数组中，最后将数组排序输出即为要求的朋友数。
-#include<stdlib.h>
+#include<stdlib.h>//寻找和在表中的位置时，如果该位置的状态为空，说明和不在表中 ，则进行插入，否则不插入
 #include<stdbool.h>
 #include<math.h>
 typedef int ElementType ;
