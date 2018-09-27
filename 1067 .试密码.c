@@ -1,4 +1,4 @@
-#include<stdio.h>//注意尝试中的密码可以有空格等空白符 不要用scanf进行输入
+#include<stdio.h>//注意尝试中的密码可以有空格等空白符 不要用scanf进行输入 开始输入时不要用scanf("%s %d\n")否则会通不过测试点2
 #include<string.h>
 int main(void)
 {
