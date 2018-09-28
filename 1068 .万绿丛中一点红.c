@@ -66,9 +66,13 @@ int Check( int **Data , int N , int M , int TOL )
                                 }
                                 if( temcnt == 1 )
                                 {
+                                        cnt++ ;
+                                        if( cnt > 1 )
+                                        {
+                                                return cnt;
+                                        }
                                         Row = i ;
                                         Column = j ;
-                                        cnt++ ;
                                 }
                         }
                 }
