@@ -1,7 +1,7 @@
 import sys#用C语言读入 操作起来应该更加舒服一些，另外如果用字典把选项和下标index对应起来代码应该更加少一些
-N , M = map( int , sys.stdin.readline().split() )
-QuestionInfo = []
-for i in range( M ) :
+N , M = map( int , sys.stdin.readline().split() )#核心思想 将选项ABCD标记为 0 0 0 0 如果选项为正确答案 则置为1 假如为 AB 则为 1 1 0 0
+QuestionInfo = []                                #如果为学生答案则将该选项 减去 1 假如在上面的条件下 学生的答案为 AC 则为 0 1 -1 0 
+for i in range( M ) :                            #最后进行检测 如果列表中有-1 就一分不得（选错） 如果没有-1 有1 就得一半 如果只有0 就满分
     Info = sys.stdin.readline().split()
     QuestionInfo.append( list( map( int , Info[:3] )))
     QuestionInfo[i].extend([ 0 for j in range(QuestionInfo[i][1])])
