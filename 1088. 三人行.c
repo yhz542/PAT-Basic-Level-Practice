@@ -1,4 +1,4 @@
-#include<stdio.h>
+#include<stdio.h>//注意丙可以是浮点数 特俗处理就可以了
 #include<stdlib.h>
 #include<stdbool.h>
 void Compare( int , int ) ;
@@ -27,7 +27,7 @@ int main(void)
                 printf("%d",jia);
                 Compare( M , jia ) ;
                 Compare( M , yi ) ;
-                if( fabs( bing - M ) < 0.00000001 )
+                if( fabs( bing - M ) < 0.00000001 )//浮点数比较 注意用小于一个很小的数
                         printf( " Ping" ) ;
                 else if( M > bing )
                         printf( " Gai" ) ;
