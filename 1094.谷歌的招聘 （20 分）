@@ -1,0 +1,36 @@
+#include <iostream>//注意事项1.输出时因为可能有前导零的存在，需要输出字符串，2.下标偏移时不要用无符号的类型
+#include <string>
+#include<cmath>
+using namespace std;
+bool IsPrime(long long);
+int main()
+{
+	int L, K;
+	cin >> L >> K;
+	string numberStr;
+	cin >> numberStr;
+	long long numberK;
+	for (int i= 0; i <= L - K; ++i)
+	{
+		string numK(numberStr.begin() + i, numberStr.begin() + i + K);
+		numberK = stoll(numK);
+		if (IsPrime(numberK))
+		{
+			cout << numK ;
+			return 0;
+		}
+	}
+	cout << "404";
+}
+bool IsPrime(long long Num)
+{
+	if (Num <= 3)
+		return Num > 1;
+	if (Num % 6 != 1 && Num % 6 != 5)
+		return false;
+	long long range = (long long)sqrt(Num);
+	for (int i = 5; i < range; i += 6)
+		if (Num%i == 0 || Num % (i + 2) == 0)
+			return false;
+	return true;
+}
